@@ -1,0 +1,52 @@
+<div class="header-container">
+ 
+  <div class="header-title">
+    <img src="assets/img/hfu_logo_white.png" alt="HFU Logo" class="logo" />
+    <h1>Digitaler Hochschulberater</h1>
+  </div>
+
+  <div class="header-right">
+    <!-- Darkmode-Button -->
+    <button class="dark_and_light_mode_button" (click)="toggleDarkMode()" aria-label="Dark Mode">
+      <img
+      [src]="isDarkMode ? 'assets/img/sonne.png' : 'assets/img/mond.png'"
+      alt="Dark mode toggle"
+      class="mode-icon"
+    />
+    </button>
+
+    <!-- Sprache-Button -->
+    <select class="language-select" [(ngModel)]="selectedLanguage">
+      <option value="de">Deutsch</option>
+      <option value="en">Englisch</option>
+      <option value="fr">Französisch</option>
+    </select>
+  </div>
+</div>
+
+
+<!-- Datenschutz-Button -->
+<div class="datenschutz-container">
+  <button class="datenschutz-button" (click)="toggleDatenschutz()">Datenschutz</button>
+</div>
+
+<!-- Datenschutz-Infos (sichtbar nur wenn showDatenschutz true ist) -->
+<div class="datenschutz-info" *ngIf="showDatenschutz"
+>
+  <p class="datenschutz_text">Hier stehen die Datenschutzbestimmungen...</p>
+</div>
+
+
+<!-- Chat  -->
+<div class="chat-container">
+  <div class="chat-window">
+    <div *ngFor="let message of messages" [ngClass]="{'sent': message.from === 'user', 'received': message.from === 'bot'}" class="chat-bubble">
+      {{ message.text }}
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input [(ngModel)]="userInput" (keydown.enter)="sendMessage()" placeholder="Nachricht eingeben..." />
+    <button (click)="sendMessage()">Senden</button>
+  </div>
+</div>
